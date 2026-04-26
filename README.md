@@ -45,10 +45,14 @@ Tests run in the `node` environment. Property-based tests live in `backend/tests
 
 ## Environment Variables
 
-| Variable     | Default    | Description                                                            |
-| ------------ | ---------- | ---------------------------------------------------------------------- |
-| `PORT`       | `8080`     | HTTP port the server listens on                                        |
-| `JWT_SECRET` | `changeme` | Secret used to sign/verify JWTs — **set a strong value in production** |
+| Variable      | Default     | Description                                                            |
+| ------------- | ----------- | ---------------------------------------------------------------------- |
+| `PORT`        | `8080`      | HTTP port the server listens on                                        |
+| `JWT_SECRET`  | `changeme`  | Secret used to sign/verify JWTs — **set a strong value in production** |
+| `DB_HOST`     | `localhost` | PostgreSQL host                                                        |
+| `DB_USER`     | `postgres`  | PostgreSQL username                                                    |
+| `DB_PASSWORD` | `postgres`  | PostgreSQL password                                                    |
+| `DB_NAME`     | `kistdb`    | PostgreSQL database name                                               |
 
 ## Project Structure
 
