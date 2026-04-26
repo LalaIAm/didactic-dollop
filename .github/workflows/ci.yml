@@ -1,0 +1,151 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ─────────────────────────────────────────────────────────────
+  # Job 1: Unit & property tests (no DB required — all mocked)
+  # ─────────────────────────────────────────────────────────────
+  unit-tests:
+    name: Unit & Property Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Run tests
+        run: npm run test:ci
+        working-directory: backend
+        env:
+          JWT_SECRET: ci-test-secret
+          BCRYPT_ROUNDS: "1"
+
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Jest Test Results
+          path: backend/test-results/junit.xml
+          reporter: java-junit
+          fail-on-error: true
+
+      - name: Upload test report artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jest-test-results
+          path: backend/test-results/junit.xml
+          retention-days: 30
+
+  # ─────────────────────────────────────────────────────────────
+  # Job 2: Integration tests — live server + PostgreSQL + Newman
+  # ─────────────────────────────────────────────────────────────
+  integration-tests:
+    name: Integration Tests (Newman)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: kistdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Sync database schema
+        run: node -e "require('./models').sequelize.sync({ force: true }).then(() => { console.log('DB synced'); process.exit(0); }).catch(e => { console.error(e); process.exit(1); })"
+        working-directory: backend
+        env:
+          DB_HOST: localhost
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: kistdb
+          JWT_SECRET: ci-test-secret
+
+      - name: Start API server
+        run: node server.js &
+        working-directory: backend
+        env:
+          PORT: 8080
+          DB_HOST: localhost
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: kistdb
+          JWT_SECRET: ci-test-secret
+
+      - name: Wait for server to be ready
+        run: |
+          echo "Waiting for server on port 8080..."
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:8080/ > /dev/null; then
+              echo "Server is up"
+              exit 0
+            fi
+            echo "Attempt $i/20 — retrying in 2s"
+            sleep 2
+          done
+          echo "Server did not start in time" && exit 1
+
+      - name: Run Newman (Postman collection)
+        run: |
+          npx newman run ../postman/lingerie-api.collection.json \
+            --env-var baseUrl=http://localhost:8080 \
+            --reporters cli,junit \
+            --reporter-junit-export test-results/newman-results.xml
+        working-directory: backend
+
+      - name: Publish Newman results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Newman Integration Test Results
+          path: backend/test-results/newman-results.xml
+          reporter: java-junit
+          fail-on-error: true
+
+      - name: Upload Newman report artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: newman-test-results
+          path: backend/test-results/newman-results.xml
+          retention-days: 30

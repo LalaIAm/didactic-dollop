@@ -14,10 +14,17 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:ci": "jest --runInBand --reporters=default --reporters=jest-junit"
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "jest-junit": {
+    "outputDirectory": "test-results",
+    "outputName": "junit.xml",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -30,6 +37,8 @@
   },
   "devDependencies": {
     "fast-check": "^4.7.0",
-    "jest": "^30.3.0"
+    "jest": "^30.3.0",
+    "jest-junit": "^17.0.0",
+    "newman": "^6.2.2"
   }
 }

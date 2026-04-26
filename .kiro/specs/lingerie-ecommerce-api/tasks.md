@@ -48,7 +48,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
   - [x] 3.2 Write property test for registration–login round trip (Property 1)
     - **Property 1: Registration–Login Round Trip Preserves Identity**
     - **Validates: Requirements 1.1, 1.3**
-  - [-] 3.3 Write property test for password storage (Property 2)
+  - [x] 3.3 Write property test for password storage (Property 2)
     - **Property 2: Passwords Are Never Stored in Plaintext**
     - **Validates: Requirements 1.1**
   - [x] 3.4 Create `backend/controllers/auth.controller.js`
