@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Payment_methods = sequelize.define('payment_methods', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},code:{type: DataTypes.TEXT,allowNull: false},label:{type: DataTypes.TEXT,allowNull: false}});Payment_methods.associate = function(models) {
+      Payment_methods.hasMany(Payments,{foreignKey:'payment_method_id',targetKey:'id'});}
+return Payment_methods;};

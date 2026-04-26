@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Order_statuses = sequelize.define('order_statuses', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},code:{type: DataTypes.TEXT,allowNull: false},label:{type: DataTypes.TEXT,allowNull: false},sort_order:{type: DataTypes.INTEGER,allowNull: false}});Order_statuses.associate = function(models) {
+      Order_statuses.hasMany(Orders,{foreignKey:'status_id',targetKey:'id'});}
+return Order_statuses;};

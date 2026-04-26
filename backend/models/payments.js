@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Payments = sequelize.define('payments', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},order_id:{type: DataTypes.INTEGER,allowNull: false},payment_method_id:{type: DataTypes.INTEGER,allowNull: false},amount:{type: DataTypes.REAL,allowNull: false},status:{type: DataTypes.TEXT,allowNull: false},transaction_id:{type: DataTypes.TEXT,allowNull: false},created_at:{type: DataTypes.TEXT,allowNull: false}},{indexes:[{name:'idx_payments_order_id',fields: ['order_id']}]});Payments.associate = function(models) {
+}
+return Payments;};

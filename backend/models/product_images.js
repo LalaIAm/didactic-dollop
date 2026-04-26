@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Product_images = sequelize.define('product_images', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},product_id:{type: DataTypes.INTEGER,allowNull: false},url:{type: DataTypes.TEXT,allowNull: false},position:{type: DataTypes.INTEGER,allowNull: false},is_featured:{type: DataTypes.BOOLEAN,allowNull: false,defaultValue: false}},{indexes:[{name:'idx_product_images_product_id',fields: ['product_id']}]});Product_images.associate = function(models) {
+}
+return Product_images;};

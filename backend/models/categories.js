@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Categories = sequelize.define('categories', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},parent_id:{type: DataTypes.INTEGER},name:{type: DataTypes.TEXT,allowNull: false},slug:{type: DataTypes.TEXT,allowNull: false},path:{type: DataTypes.TEXT,allowNull: false}});Categories.associate = function(models) {
+      Categories.hasMany(Categories,{foreignKey:'parent_id',targetKey:'id'});    Categories.hasMany(Product_categories,{foreignKey:'category_id',targetKey:'id'});}
+return Categories;};

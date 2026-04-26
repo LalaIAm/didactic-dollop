@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "New Git Branch on Task Start",
+  "description": "At the start of a top-level task, automatically creates a new git branch named after the task",
+  "version": "1",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Create a new git branch at the start of a top-level task. Name it after the task"
+  },
+  "workspaceFolderName": "lingerie-app",
+  "shortName": "new-branch-on-task-start"
+}

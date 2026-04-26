@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Sizes = sequelize.define('sizes', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},code:{type: DataTypes.TEXT,allowNull: false},name:{type: DataTypes.TEXT,allowNull: false},sort_order:{type: DataTypes.INTEGER,allowNull: false,defaultValue: 0}});Sizes.associate = function(models) {
+      Sizes.hasMany(Product_variants,{foreignKey:'size_id',targetKey:'id'});}
+return Sizes;};

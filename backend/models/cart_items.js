@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Cart_items = sequelize.define('cart_items', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},cart_id:{type: DataTypes.INTEGER,allowNull: false},product_variant_id:{type: DataTypes.INTEGER,allowNull: false},quantity:{type: DataTypes.INTEGER,allowNull: false},unit_price:{type: DataTypes.REAL,allowNull: false},added_at:{type: DataTypes.TEXT,allowNull: false,defaultValue: now()}},{indexes:[{name:'idx_cart_items_cart',fields: ['cart_id']}]});Cart_items.associate = function(models) {
+}
+return Cart_items;};

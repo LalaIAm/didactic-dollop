@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Carts = sequelize.define('carts', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},customer_id:{type: DataTypes.INTEGER},session_id:{type: DataTypes.TEXT},status:{type: DataTypes.TEXT,allowNull: false},created_at:{type: DataTypes.TEXT,allowNull: false,defaultValue: now()},updated_at:{type: DataTypes.TEXT,allowNull: false,defaultValue: now()},abandoned_at:{type: DataTypes.TEXT},converted_order_id:{type: DataTypes.INTEGER}},{indexes:[{name:'idx_carts_customer',fields: ['customer_id']},{name:'idx_carts_session',fields: ['session_id']}]});Carts.associate = function(models) {
+      Carts.hasMany(Cart_items,{foreignKey:'cart_id',targetKey:'id'});}
+return Carts;};

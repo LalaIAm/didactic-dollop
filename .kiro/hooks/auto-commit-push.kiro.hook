@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Auto Commit and Push",
+  "description": "After any major code changes (write operations), generates a descriptive commit message, commits, and pushes all changes to the remote repository",
+  "version": "1",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the recent code changes that were just made. If they represent a meaningful/major change (new features, bug fixes, refactoring, etc.), stage all modified files with `git add -A`, write a descriptive commit message following conventional commits format (e.g. feat:, fix:, refactor:), commit, and push to the remote branch. Skip if the changes are trivial or if there's nothing to commit."
+  }
+}

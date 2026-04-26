@@ -1,0 +1,3 @@
+module.exports = (sequelize, DataTypes) => {const Reviews = sequelize.define('reviews', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},product_id:{type: DataTypes.INTEGER,allowNull: false},customer_id:{type: DataTypes.INTEGER,allowNull: false},rating:{type: DataTypes.INTEGER,allowNull: false},title:{type: DataTypes.TEXT},body:{type: DataTypes.TEXT},created_at:{type: DataTypes.TEXT,allowNull: false}},{indexes:[{name:'idx_reviews_product_id',fields: ['product_id']}]});Reviews.associate = function(models) {
+}
+return Reviews;};
