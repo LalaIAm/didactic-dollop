@@ -27,7 +27,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
     - _Requirements: 11.2, 11.3_
 
 - [-] 2. Auth middleware
-  - [-] 2.1 Create `backend/middleware/auth.middleware.js`
+  - [x] 2.1 Create `backend/middleware/auth.middleware.js`
     - Verify `Authorization: Bearer <token>` using `jsonwebtoken`; attach `req.customer = { id, email }`; call `next(new AppError(..., 401))` on failure
     - _Requirements: 1.5, 1.6_
   - [ ]\* 2.2 Write property test for auth middleware (Property 3)
