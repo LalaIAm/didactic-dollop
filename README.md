@@ -59,6 +59,7 @@ backend/
 │   ├── auth.middleware.js        # JWT authentication middleware (customers)
 │   └── adminAuth.middleware.js   # JWT authentication middleware (admins)
 ├── models/
+│   ├── index.js                  # Sequelize instance, model loader, and association runner
 │   └── *.js                      # Sequelize model definitions (one per table)
 ├── utils/
 │   └── AppError.js               # Custom operational error class
