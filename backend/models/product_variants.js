@@ -1,3 +1,38 @@
-module.exports = (sequelize, DataTypes) => {const Product_variants = sequelize.define('product_variants', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},product_id:{type: DataTypes.INTEGER,allowNull: false},sku:{type: DataTypes.TEXT,allowNull: false},size_id:{type: DataTypes.INTEGER},color_id:{type: DataTypes.INTEGER},upc_code:{type: DataTypes.TEXT},cost_price:{type: DataTypes.REAL,allowNull: false},retail_price:{type: DataTypes.REAL,allowNull: false},stock_status:{type: DataTypes.TEXT,allowNull: false},stock_quantity:{type: DataTypes.INTEGER,allowNull: false,defaultValue: 0}},{indexes:[{name:'idx_product_variants_product_id',fields: ['product_id']}]});Product_variants.associate = function(models) {
-      Product_variants.hasMany(Cart_items,{foreignKey:'product_variant_id',targetKey:'id'});    Product_variants.hasMany(Order_items,{foreignKey:'product_variant_id',targetKey:'id'});}
-return Product_variants;};
+module.exports = (sequelize, DataTypes) => {
+  const Product_variants = sequelize.define(
+    "product_variants",
+    {
+      id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
+      product_id: { type: DataTypes.INTEGER, allowNull: false },
+      sku: { type: DataTypes.TEXT, allowNull: false },
+      size_id: { type: DataTypes.INTEGER },
+      color_id: { type: DataTypes.INTEGER },
+      upc_code: { type: DataTypes.TEXT },
+      cost_price: { type: DataTypes.REAL, allowNull: false },
+      retail_price: { type: DataTypes.REAL, allowNull: false },
+      stock_status: { type: DataTypes.TEXT, allowNull: false },
+      stock_quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
+    },
+    {
+      indexes: [
+        { name: "idx_product_variants_product_id", fields: ["product_id"] },
+      ],
+    },
+  );
+  Product_variants.associate = function (models) {
+    Product_variants.hasMany(Cart_items, {
+      foreignKey: "product_variant_id",
+      targetKey: "id",
+    });
+    Product_variants.hasMany(Order_items, {
+      foreignKey: "product_variant_id",
+      targetKey: "id",
+    });
+  };
+  return Product_variants;
+};

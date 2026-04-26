@@ -6,61 +6,61 @@ Implement the full REST API in a layered architecture (routes → middleware →
 
 ## Tasks
 
-- [ ] 1. Foundation — utilities, error handling, and model amendments
-  - [ ] 1.1 Create `backend/utils/AppError.js`
+- [x] 1. Foundation — utilities, error handling, and model amendments
+  - [x] 1.1 Create `backend/utils/AppError.js`
     - Implement `AppError` class extending `Error` with a `statusCode` property
     - _Requirements: 11.2, 11.3_
-  - [ ] 1.2 Add `password_hash` and `is_active` fields to the `customers` Sequelize model
+  - [x] 1.2 Add `password_hash` and `is_active` fields to the `customers` Sequelize model
     - Add `password_hash: DataTypes.TEXT, allowNull: false` and `is_active: DataTypes.BOOLEAN, defaultValue: true`
     - _Requirements: 1.1, 16.1_
-  - [ ] 1.3 Add `is_active` field to the `products` Sequelize model
+  - [x] 1.3 Add `is_active` field to the `products` Sequelize model
     - Add `is_active: DataTypes.BOOLEAN, defaultValue: true`
     - _Requirements: 14.4_
-  - [ ] 1.4 Add `is_active` field to the `product_variants` Sequelize model
+  - [x] 1.4 Add `is_active` field to the `product_variants` Sequelize model
     - Add `is_active: DataTypes.BOOLEAN, defaultValue: true`
     - _Requirements: 14.7_
-  - [ ] 1.5 Create `backend/models/admins.js` Sequelize model
+  - [x] 1.5 Create `backend/models/admins.js` Sequelize model
     - Fields: `id` (INTEGER PK), `email` (TEXT UNIQUE NOT NULL), `password_hash` (TEXT NOT NULL), `created_at` (TEXT NOT NULL)
     - _Requirements: 12.1_
-  - [ ] 1.6 Register the global error handler middleware in `server.js`
+  - [x] 1.6 Register the global error handler middleware in `server.js`
     - Import and mount after all routes: catches `AppError` → responds with `err.statusCode` + `{ message }`, else 500 + logs
     - _Requirements: 11.2, 11.3_
 
-- [ ] 2. Auth middleware
-  - [ ] 2.1 Create `backend/middleware/auth.middleware.js`
+- [x] 2. Auth middleware
+  - [x] 2.1 Create `backend/middleware/auth.middleware.js`
     - Verify `Authorization: Bearer <token>` using `jsonwebtoken`; attach `req.customer = { id, email }`; call `next(new AppError(..., 401))` on failure
     - _Requirements: 1.5, 1.6_
-  - [ ]\* 2.2 Write property test for auth middleware (Property 3)
+  - [x] 2.2 Write property test for auth middleware (Property 3)
     - **Property 3: Auth Middleware Rejects All Invalid Tokens on Protected Routes**
     - **Validates: Requirements 1.5, 1.6**
-  - [ ] 2.3 Create `backend/middleware/adminAuth.middleware.js`
+  - [x] 2.3 Create `backend/middleware/adminAuth.middleware.js`
     - Reuse JWT verification; additionally check `payload.role === 'admin'`; return 401 for missing/invalid JWT, 403 for wrong role
     - _Requirements: 12.3, 12.4, 12.5_
-  - [ ]\* 2.4 Write property test for admin auth middleware (Property 5)
+  - [x] 2.4 Write property test for admin auth middleware (Property 5)
     - **Property 5: Admin Middleware Enforces Role on Every Admin Route**
     - **Validates: Requirements 12.3, 12.4, 12.5**
 
-- [ ] 3. Customer authentication
-  - [ ] 3.1 Create `backend/services/auth.service.js`
+- [-] 3. Customer authentication
+  - [x] 3.1 Create `backend/services/auth.service.js`
     - `register(firstName, lastName, email, password)`: hash password with bcrypt, create Customer, sign and return JWT; throw 409 if email exists
     - `login(email, password)`: find Customer by email, compare hash, sign and return JWT; throw 401 on mismatch
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
-  - [ ]\* 3.2 Write property test for registration–login round trip (Property 1)
+  - [x] 3.2 Write property test for registration–login round trip (Property 1)
     - **Property 1: Registration–Login Round Trip Preserves Identity**
     - **Validates: Requirements 1.1, 1.3**
-  - [ ]\* 3.3 Write property test for password storage (Property 2)
+  - [x] 3.3 Write property test for password storage (Property 2)
     - **Property 2: Passwords Are Never Stored in Plaintext**
     - **Validates: Requirements 1.1**
-  - [ ] 3.4 Create `backend/controllers/auth.controller.js`
+  - [x] 3.4 Create `backend/controllers/auth.controller.js`
     - `register`: parse body, call `auth.service.register`, respond 201 with `{ data: { token } }`
     - `login`: parse body, call `auth.service.login`, respond 200 with `{ data: { token } }`
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
-  - [ ] 3.5 Create `backend/routes/auth.routes.js` and mount at `/api/auth` in `server.js`
+  - [x] 3.5 Create `backend/routes/auth.routes.js` and mount at `/api/auth` in `server.js`
     - `POST /register` → `auth.controller.register`
     - `POST /login` → `auth.controller.login`
     - _Requirements: 1.1, 1.3_
 
-- [ ] 4. Checkpoint — Ensure all tests pass, ask the user if questions arise.
+- [x] 4. Checkpoint — Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 5. Product catalog and variants
   - [ ] 5.1 Create `backend/services/product.service.js`
