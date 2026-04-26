@@ -94,6 +94,43 @@ const registrationArb = fc.record({
 });
 
 // ---------------------------------------------------------------------------
+// Property 2 — Passwords Are Never Stored in Plaintext
+// ---------------------------------------------------------------------------
+
+/**
+ * Property 2: Passwords Are Never Stored in Plaintext
+ *
+ * For any customer registration, the `password_hash` value stored in the
+ * database SHALL NOT equal the plaintext password provided during registration.
+ *
+ * Validates: Requirements 1.1
+ */
+
+describe("Property 2 — Passwords Are Never Stored in Plaintext", () => {
+  beforeEach(resetStore);
+
+  test("2a: stored password_hash never equals the plaintext password", async () => {
+    jest.setTimeout(30000);
+    await fc.assert(
+      fc.asyncProperty(
+        registrationArb,
+        async ({ firstName, lastName, email, password }) => {
+          resetStore();
+
+          await authService.register(firstName, lastName, email, password);
+
+          // Retrieve the record that was stored in the mock store
+          const stored = mockStore.find((c) => c.email === email);
+          expect(stored).toBeDefined();
+          expect(stored.password_hash).not.toBe(password);
+        },
+      ),
+      { numRuns: 50 },
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Property 1 — Registration–Login Round Trip Preserves Identity
 // ---------------------------------------------------------------------------
 
