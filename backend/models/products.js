@@ -1,3 +1,34 @@
-module.exports = (sequelize, DataTypes) => {const Products = sequelize.define('products', {id:{type: DataTypes.INTEGER,primaryKey:true,allowNull: false},sku:{type: DataTypes.TEXT,allowNull: false},name:{type: DataTypes.TEXT,allowNull: false},description:{type: DataTypes.TEXT},cost_price:{type: DataTypes.REAL,allowNull: false},retail_price:{type: DataTypes.REAL,allowNull: false},markup:{type: DataTypes.REAL,allowNull: false},featured_image:{type: DataTypes.TEXT},created_at:{type: DataTypes.TEXT,allowNull: false,defaultValue: now()}});Products.associate = function(models) {
-      Products.hasMany(Product_categories,{foreignKey:'product_id',targetKey:'id'});    Products.hasMany(Product_images,{foreignKey:'product_id',targetKey:'id'});    Products.hasMany(Product_variants,{foreignKey:'product_id',targetKey:'id'});    Products.hasMany(Reviews,{foreignKey:'product_id',targetKey:'id'});    Products.hasMany(Wishlist_items,{foreignKey:'product_id',targetKey:'id'});}
-return Products;};
+module.exports = (sequelize, DataTypes) => {
+  const Products = sequelize.define("products", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false },
+    sku: { type: DataTypes.TEXT, allowNull: false },
+    name: { type: DataTypes.TEXT, allowNull: false },
+    description: { type: DataTypes.TEXT },
+    cost_price: { type: DataTypes.REAL, allowNull: false },
+    retail_price: { type: DataTypes.REAL, allowNull: false },
+    markup: { type: DataTypes.REAL, allowNull: false },
+    featured_image: { type: DataTypes.TEXT },
+    is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
+    created_at: { type: DataTypes.TEXT, allowNull: false, defaultValue: now() },
+  });
+  Products.associate = function (models) {
+    Products.hasMany(Product_categories, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+    Products.hasMany(Product_images, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+    Products.hasMany(Product_variants, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+    Products.hasMany(Reviews, { foreignKey: "product_id", targetKey: "id" });
+    Products.hasMany(Wishlist_items, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+  };
+  return Products;
+};
