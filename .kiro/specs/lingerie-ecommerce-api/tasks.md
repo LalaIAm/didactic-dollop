@@ -26,7 +26,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
     - Import and mount after all routes: catches `AppError` → responds with `err.statusCode` + `{ message }`, else 500 + logs
     - _Requirements: 11.2, 11.3_
 
-- [-] 2. Auth middleware
+- [x] 2. Auth middleware
   - [x] 2.1 Create `backend/middleware/auth.middleware.js`
     - Verify `Authorization: Bearer <token>` using `jsonwebtoken`; attach `req.customer = { id, email }`; call `next(new AppError(..., 401))` on failure
     - _Requirements: 1.5, 1.6_
@@ -36,11 +36,11 @@ Implement the full REST API in a layered architecture (routes → middleware →
   - [x] 2.3 Create `backend/middleware/adminAuth.middleware.js`
     - Reuse JWT verification; additionally check `payload.role === 'admin'`; return 401 for missing/invalid JWT, 403 for wrong role
     - _Requirements: 12.3, 12.4, 12.5_
-  - [-] 2.4 Write property test for admin auth middleware (Property 5)
+  - [x] 2.4 Write property test for admin auth middleware (Property 5)
     - **Property 5: Admin Middleware Enforces Role on Every Admin Route**
     - **Validates: Requirements 12.3, 12.4, 12.5**
 
-- [ ] 3. Customer authentication
+- [~] 3. Customer authentication
   - [ ] 3.1 Create `backend/services/auth.service.js`
     - `register(firstName, lastName, email, password)`: hash password with bcrypt, create Customer, sign and return JWT; throw 409 if email exists
     - `login(email, password)`: find Customer by email, compare hash, sign and return JWT; throw 401 on mismatch
