@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const AppError = require("./utils/AppError");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the app" });
 });
+
+// Auth routes
+app.use("/api/auth", authRoutes);
 
 // Global error handler — must be registered after all routes
 // eslint-disable-next-line no-unused-vars

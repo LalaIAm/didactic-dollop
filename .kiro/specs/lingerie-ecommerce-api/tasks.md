@@ -51,11 +51,11 @@ Implement the full REST API in a layered architecture (routes → middleware →
   - [ ] 3.3 Write property test for password storage (Property 2)
     - **Property 2: Passwords Are Never Stored in Plaintext**
     - **Validates: Requirements 1.1**
-  - [-] 3.4 Create `backend/controllers/auth.controller.js`
+  - [x] 3.4 Create `backend/controllers/auth.controller.js`
     - `register`: parse body, call `auth.service.register`, respond 201 with `{ data: { token } }`
     - `login`: parse body, call `auth.service.login`, respond 200 with `{ data: { token } }`
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
-  - [ ] 3.5 Create `backend/routes/auth.routes.js` and mount at `/api/auth` in `server.js`
+  - [-] 3.5 Create `backend/routes/auth.routes.js` and mount at `/api/auth` in `server.js`
     - `POST /register` → `auth.controller.register`
     - `POST /login` → `auth.controller.login`
     - _Requirements: 1.1, 1.3_
