@@ -47,14 +47,15 @@ Tests run in the `node` environment. Property-based tests live in `backend/tests
 ```
 backend/
 ├── config/
-│   └── db.config.js          # PostgreSQL connection (host, user, pool)
+│   └── db.config.js              # PostgreSQL connection (host, user, pool)
 ├── middleware/
-│   └── auth.middleware.js    # JWT authentication middleware
+│   ├── auth.middleware.js        # JWT authentication middleware (customers)
+│   └── adminAuth.middleware.js   # JWT authentication middleware (admins)
 ├── models/
-│   └── *.js                  # Sequelize model definitions (one per table)
+│   └── *.js                      # Sequelize model definitions (one per table)
 ├── utils/
-│   └── AppError.js           # Custom operational error class
-└── server.js                 # Express app entry point
+│   └── AppError.js               # Custom operational error class
+└── server.js                     # Express app entry point
 ```
 
 ## Authentication
@@ -73,6 +74,17 @@ Validates the JWT on every protected customer route.
 - Verifies the token against `JWT_SECRET`
 - On success: attaches `req.customer = { id, email }` and calls `next()`
 - On failure: passes an `AppError(401)` to the global error handler
+
+### `adminAuth.middleware.js`
+
+Validates the JWT on every protected admin route and enforces the `admin` role.
+
+- Reads the `Authorization: Bearer <token>` header
+- Verifies the token against `JWT_SECRET`
+- Checks that `payload.role === 'admin'`
+- On success: attaches `req.admin = { id, email, role }` and calls `next()`
+- On missing/invalid token: passes an `AppError(401)` to the global error handler
+- On valid token but wrong role: passes an `AppError(403)` to the global error handler
 
 ## Error Handling
 
