@@ -30,10 +30,10 @@ Implement the full REST API in a layered architecture (routes → middleware →
   - [x] 2.1 Create `backend/middleware/auth.middleware.js`
     - Verify `Authorization: Bearer <token>` using `jsonwebtoken`; attach `req.customer = { id, email }`; call `next(new AppError(..., 401))` on failure
     - _Requirements: 1.5, 1.6_
-  - [-] 2.2 Write property test for auth middleware (Property 3)
+  - [x] 2.2 Write property test for auth middleware (Property 3)
     - **Property 3: Auth Middleware Rejects All Invalid Tokens on Protected Routes**
     - **Validates: Requirements 1.5, 1.6**
-  - [ ] 2.3 Create `backend/middleware/adminAuth.middleware.js`
+  - [~] 2.3 Create `backend/middleware/adminAuth.middleware.js`
     - Reuse JWT verification; additionally check `payload.role === 'admin'`; return 401 for missing/invalid JWT, 403 for wrong role
     - _Requirements: 12.3, 12.4, 12.5_
   - [ ]\* 2.4 Write property test for admin auth middleware (Property 5)

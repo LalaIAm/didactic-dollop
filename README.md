@@ -24,6 +24,17 @@ Server runs on port `8080` by default. Override with the `PORT` environment vari
 PORT=3000 node server.js
 ```
 
+## Testing
+
+[Jest](https://jestjs.io/) is configured as the test runner with `--runInBand` (serial execution) to avoid database connection conflicts.
+
+```bash
+cd backend
+npm test
+```
+
+Tests run in the `node` environment. Property-based tests live in `backend/tests/`.
+
 ## Environment Variables
 
 | Variable     | Default    | Description                                                            |
