@@ -45,7 +45,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
     - `register(firstName, lastName, email, password)`: hash password with bcrypt, create Customer, sign and return JWT; throw 409 if email exists
     - `login(email, password)`: find Customer by email, compare hash, sign and return JWT; throw 401 on mismatch
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
-  - [-] 3.2 Write property test for registration–login round trip (Property 1)
+  - [x] 3.2 Write property test for registration–login round trip (Property 1)
     - **Property 1: Registration–Login Round Trip Preserves Identity**
     - **Validates: Requirements 1.1, 1.3**
   - [ ] 3.3 Write property test for password storage (Property 2)

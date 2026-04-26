@@ -39,6 +39,7 @@ Tests run in the `node` environment. Property-based tests live in `backend/tests
 
 | File                                    | Property   | Description                                                                                                             | Requirements     |
 | --------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `auth.service.property.test.js`         | Property 1 | Registration–login round trip preserves identity; wrong password returns 401; duplicate email returns 409               | 1.1, 1.3         |
 | `auth.middleware.property.test.js`      | Property 3 | Auth middleware rejects all invalid tokens (missing, malformed, expired, wrong secret, tampered) and accepts valid ones | 1.5, 1.6         |
 | `adminAuth.middleware.property.test.js` | Property 5 | Admin middleware returns 401 for invalid/missing JWTs and 403 for valid JWTs without the `admin` role claim             | 12.3, 12.4, 12.5 |
 
