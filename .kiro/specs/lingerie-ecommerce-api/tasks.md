@@ -6,8 +6,8 @@ Implement the full REST API in a layered architecture (routes → middleware →
 
 ## Tasks
 
-- [ ] 1. Foundation — utilities, error handling, and model amendments
-  - [ ] 1.1 Create `backend/utils/AppError.js`
+- [-] 1. Foundation — utilities, error handling, and model amendments
+  - [-] 1.1 Create `backend/utils/AppError.js`
     - Implement `AppError` class extending `Error` with a `statusCode` property
     - _Requirements: 11.2, 11.3_
   - [ ] 1.2 Add `password_hash` and `is_active` fields to the `customers` Sequelize model
