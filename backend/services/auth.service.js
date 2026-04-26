@@ -7,7 +7,7 @@ const AppError = require("../utils/AppError");
 
 const JWT_SECRET = process.env.JWT_SECRET || "changeme";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
-const BCRYPT_ROUNDS = 10;
+const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS, 10) || 10;
 
 /**
  * Register a new customer.
