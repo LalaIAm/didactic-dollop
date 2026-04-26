@@ -41,7 +41,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
     - **Validates: Requirements 12.3, 12.4, 12.5**
 
 - [-] 3. Customer authentication
-  - [-] 3.1 Create `backend/services/auth.service.js`
+  - [x] 3.1 Create `backend/services/auth.service.js`
     - `register(firstName, lastName, email, password)`: hash password with bcrypt, create Customer, sign and return JWT; throw 409 if email exists
     - `login(email, password)`: find Customer by email, compare hash, sign and return JWT; throw 401 on mismatch
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
@@ -51,7 +51,7 @@ Implement the full REST API in a layered architecture (routes → middleware →
   - [ ] 3.3 Write property test for password storage (Property 2)
     - **Property 2: Passwords Are Never Stored in Plaintext**
     - **Validates: Requirements 1.1**
-  - [ ] 3.4 Create `backend/controllers/auth.controller.js`
+  - [-] 3.4 Create `backend/controllers/auth.controller.js`
     - `register`: parse body, call `auth.service.register`, respond 201 with `{ data: { token } }`
     - `login`: parse body, call `auth.service.login`, respond 200 with `{ data: { token } }`
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
